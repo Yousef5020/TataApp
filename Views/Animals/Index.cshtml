@@ -1,0 +1,64 @@
+﻿@using Animal = TataApp.Models.Database.Animal
+@model Animal[]
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Animals";
+}
+
+<h1>Animals</h1>
+<hr />
+<button class="btn btn-primary" onclick="addAnimal()">Add Animal</button>
+<br />
+<br />
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @if (Model.Length > 0)
+    {
+        @foreach (Animal animal in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img class="card-img-top" style="height: 70%;" src="Animals/GetAnimalPhoto/@animal.Id" alt="@animal.Name Photo">
+                    <div class="card-body">
+                        <h5 class="card-title">@animal.Name</h5>
+                        <p class="card-text">@animal.Description</p>
+                    </div>
+                    <div class="card-body">
+                        <a asp-controller="Animals" asp-action="EditAnimal" asp-route-id="@animal.Id" class="card-link">Edit</a>
+                        <a asp-controller="Animals" asp-action="DeleteAnimal" asp-route-id="@animal.Id" class="card-link">Delete</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-id="@animal.Id">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+    else
+    {
+        <p>
+            No Animals Found Try To Add One.
+        </p>
+    }
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="modal-confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
